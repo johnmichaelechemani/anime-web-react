@@ -5,7 +5,7 @@ function App() {
     <>
       <div className="">
         {" "}
-        <h1>Hi</h1>
+        <h1 className="font-extrabold text-5xl">Hi</h1>
       </div>
     </>
   );
