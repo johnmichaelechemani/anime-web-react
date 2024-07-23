@@ -5,10 +5,10 @@ body{
 }
 
 
-  :root{
-    background-color: var(--bg-color);
+  /* :root{
+    background-color: var(--bg-color); */
 
     /*  */
-    --bg-color: rgb(239, 242, 252);
+    /* --bg-color: rgb(15, 18, 29); */
     /*  */
-  }
+  
