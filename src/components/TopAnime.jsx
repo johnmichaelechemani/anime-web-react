@@ -43,7 +43,7 @@ export default function TopAnimeComponent({ topAnime }) {
                       <Icon icon="mdi:cc-outline" className="text-xl" />
                       {item.episodes}
                     </span>
-                    <span>{item.type}</span>
+                    <span className="text-primary">{item.type}</span>
                   </div>
                 </div>
                 <div className="pointer-events-none rounded-xl absolute inset-x-0 bottom-0 w-full h-[70%] bg-gradient-to-t from-base-100"></div>
