@@ -5,6 +5,7 @@ import bgImage from "../src/assets/kaido.jpg";
 import RandomAnime from "./components/RandomAnime";
 import Banner from "./components/Banner";
 import TopAnimeComponent from "./components/TopAnime";
+import Loading from "./components/Loading";
 function App() {
   const [data, setData] = useState(null);
   const [topAnime, setTopAnime] = useState(null);
@@ -64,7 +65,7 @@ function App() {
             <RandomAnime data={data} key={data.mal_id} />
           ) : (
             <>
-              <span className="loading loading-spinner loading-xs"></span>
+              <Loading />
             </>
           )}
         </div>
@@ -80,9 +81,7 @@ function App() {
           <TopAnimeComponent topAnime={topAnime} />
         ) : (
           <>
-            <div className="flex justify-center items-center">
-              <span className="loading  loading-spinner loading-xs"></span>
-            </div>
+            <Loading />
           </>
         )}
       </div>

@@ -55,6 +55,7 @@ function RandomAnime({ data }) {
               isModalOpen ? (
                 <iframe
                   width="100%"
+                  className="rounded-xl"
                   height="315"
                   src={data.trailer.embed_url}
                   title={`${data.title} Trailer`}
@@ -68,28 +69,40 @@ function RandomAnime({ data }) {
             </div>
             <h3 className="text-3xl py-3 font-bold">{data.title}</h3>
             <div className="flex justify-start items-center gap-2">
-              <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
-                <Icon icon="game-icons:rank-2" className="text-xl" />{" "}
-                {data.rank}
-              </div>
+              {data.rank ? (
+                <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
+                  <Icon icon="game-icons:rank-2" className="text-xl" />{" "}
+                  {data.rank}
+                </div>
+              ) : (
+                <></>
+              )}
               <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
                 <Icon icon="mdi:cc-outline" className="text-xl" />{" "}
                 {data.episodes}
               </div>
-              <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
-                <Icon
-                  icon="material-symbols-light:sports-score"
-                  className="text-xl"
-                />
-                {data.score}
-              </div>
-              <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
-                <Icon
-                  icon="material-symbols-light:favorite-outline"
-                  className="text-xl"
-                />
-                {data.favorites}
-              </div>
+              {data.score ? (
+                <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
+                  <Icon
+                    icon="material-symbols-light:sports-score"
+                    className="text-xl"
+                  />
+                  {data.score}
+                </div>
+              ) : (
+                <></>
+              )}
+              {data.favorites ? (
+                <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
+                  <Icon
+                    icon="material-symbols-light:favorite-outline"
+                    className="text-xl"
+                  />
+                  {data.favorites}
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
             <div className="my-2">
               <span className="bg-primary/10 rounded-md py-1 text-sm  px-3">

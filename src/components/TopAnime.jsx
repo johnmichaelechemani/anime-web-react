@@ -71,6 +71,7 @@ export default function TopAnimeComponent({ topAnime }) {
                   <iframe
                     width="100%"
                     height="315"
+                    className="rounded-xl"
                     src={selectedItem.trailer.embed_url}
                     title={`${selectedItem.title} Trailer`}
                     frameBorder="0"
