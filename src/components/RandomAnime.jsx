@@ -1,10 +1,22 @@
 import { Icon } from "@iconify-icon/react";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 function RandomAnime({ data }) {
+  const modalRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModal = () => {
+    setIsModalOpen(true);
+    if (modalRef.current) {
+      modalRef.current.showModal();
+    }
+  };
   return (
     <>
       <div className="absolute -top-10 sm:-top-32 z-10">
-        <div className=" rounded-xl bg-gradient-to-tr from-blue-500 from-30% p-[1px] to-cyan-500 to-100% shadow-lg shadow-cyan-500/50 transition overflow-hidden">
+        <div
+          className=" rounded-xl bg-gradient-to-tr from-blue-500 from-30% p-[1px] to-cyan-500 to-100% shadow-lg shadow-cyan-500/50 transition overflow-hidden"
+          onClick={handleModal}
+        >
           <div className="w-52 relative rounded-xl h-52 ">
             <img
               src={data.images.jpg.image_url}
@@ -27,20 +39,77 @@ function RandomAnime({ data }) {
           </div>
         </div>
       </div>
+      {/* modal */}
+      <div>
+        <dialog
+          id="modal"
+          className="modal "
+          ref={modalRef}
+          onClose={() => setIsModalOpen(false)}
+        >
+          <div className="modal-box bg-gray-800/50 text-gray-200 border border-gray-500/50 backdrop-blur-xl">
+            <div>
+              {data &&
+              data.trailer &&
+              data.trailer.youtube_id &&
+              isModalOpen ? (
+                <iframe
+                  width="100%"
+                  height="315"
+                  src={data.trailer.embed_url}
+                  title={`${data.title} Trailer`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <></>
+              )}
+            </div>
+            <h3 className="text-3xl py-3 font-bold">{data.title}</h3>
+            <div className="flex justify-start items-center gap-2">
+              <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
+                <Icon icon="game-icons:rank-2" className="text-xl" />{" "}
+                {data.rank}
+              </div>
+              <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
+                <Icon icon="mdi:cc-outline" className="text-xl" />{" "}
+                {data.episodes}
+              </div>
+              <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
+                <Icon
+                  icon="material-symbols-light:sports-score"
+                  className="text-xl"
+                />
+                {data.score}
+              </div>
+              <div className="bg-primary/10 rounded-md  p-1 flex justify-center items-center gap-1">
+                <Icon
+                  icon="material-symbols-light:favorite-outline"
+                  className="text-xl"
+                />
+                {data.favorites}
+              </div>
+            </div>
+            <div className="my-2">
+              <span className="bg-primary/10 rounded-md py-1 text-sm  px-3">
+                {data.rating}
+              </span>
+            </div>
+            <div className="py-2">
+              <p>Synopsis:</p>
+              <p className="py-4 text-sm text-left">{data.synopsis}</p>
+            </div>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </div>
     </>
   );
 }
 RandomAnime.propTypes = {
-  data: PropTypes.shape({
-    mal_id: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    images: PropTypes.shape({
-      jpg: PropTypes.shape({
-        image_url: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
-    episodes: PropTypes.number.isRequired,
-  }).isRequired,
+  data: PropTypes.any,
 };
 export default RandomAnime;
