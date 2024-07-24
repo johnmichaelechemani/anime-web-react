@@ -4,14 +4,13 @@ import axios from "axios";
 import bgImage from "../src/assets/kaido.jpg";
 import RandomAnime from "./components/RandomAnime";
 import Banner from "./components/Banner";
-import RecommendationsComponent from "./components/Recommendations";
+import TopAnimeComponent from "./components/TopAnime";
 function App() {
   const [data, setData] = useState(null);
-  const [recommendations, setRecommendations] = useState(null);
+  const [topAnime, setTopAnime] = useState(null);
   const dataFetchedRef = useRef(false);
 
-  const endPointURlRecommendations =
-    "https://api.jikan.moe/v4/recommendations/anime";
+  const endPointURlTopAnime = "https://api.jikan.moe/v4/top/anime";
   const endPointURlRandom = "https://api.jikan.moe/v4/random/anime";
 
   useEffect(() => {
@@ -31,23 +30,25 @@ function App() {
         console.error(error);
       }
     };
-    const getRecommendations = async () => {
+    const getTopAnime = async () => {
       const anime = {
         method: "GET",
-        url: endPointURlRecommendations,
+        url: endPointURlTopAnime,
       };
 
       try {
         const response = await axios.request(anime);
-        const limitedRecommendations = response.data.data.slice(0, 5);
-        setRecommendations(limitedRecommendations);
+        const top10Anime = response.data.data.splice(0, 10);
+
+        setTopAnime(top10Anime);
+        console.log(response.data.data);
       } catch (error) {
         console.error(error);
       }
     };
 
     getData();
-    getRecommendations();
+    getTopAnime();
   }, []);
 
   return (
@@ -64,16 +65,15 @@ function App() {
         </div>
         <div className="py-5 pt-20 sm:pt-10 flex justify-start px-8 items-center gap-3">
           <button className="btn btn-sm rounded-full text-gray-200 font-semibold btn-primary tracking-wide  px-6">
-            Recommendations
+            Top 10 Anime
           </button>
           <button className="btn btn-sm rounded-full bg-transparent border border-gray-500/50 px-6 ">
             Playlist
           </button>
         </div>
-        <RecommendationsComponent recommendations={recommendations} />
+        {topAnime ? <TopAnimeComponent topAnime={topAnime} /> : <>Loading...</>}
       </div>
     </>
   );
 }
-
 export default App;
