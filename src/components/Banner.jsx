@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import Search from "./Search";
 export default function Banner({ bgImage }) {
   return (
     <>
@@ -9,13 +10,7 @@ export default function Banner({ bgImage }) {
             alt=""
             className="object-cover object-center h-full w-full"
           />
-          <div className="absolute top-3 left-5  z-10">
-            <input
-              type="search"
-              placeholder="Search.."
-              className="input input-bordered bg-transparent rounded-full w-full max-w-lg"
-            />
-          </div>
+          <Search />
           <h1 className="absolute text-gray-200 top-20 left-2 px-5 text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold z-10  drop-shadow-[0,0,0,0,8]">
             Watch anytime,{" "}
             <span className="bg-gradient-to-r relative from-blue-500 from-20% to-cyan-500 to-70%  bg-clip-text text-transparent">
