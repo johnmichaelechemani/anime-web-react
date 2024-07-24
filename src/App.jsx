@@ -63,7 +63,9 @@ function App() {
           {data ? (
             <RandomAnime data={data} key={data.mal_id} />
           ) : (
-            <>Loading...</>
+            <>
+              <span className="loading loading-spinner loading-xs"></span>
+            </>
           )}
         </div>
         <div className="py-5 pt-20 sm:pt-10 flex justify-start px-8 items-center gap-3">
@@ -74,7 +76,15 @@ function App() {
             Playlist
           </button>
         </div>
-        {topAnime ? <TopAnimeComponent topAnime={topAnime} /> : <>Loading...</>}
+        {topAnime ? (
+          <TopAnimeComponent topAnime={topAnime} />
+        ) : (
+          <>
+            <div className="flex justify-center items-center">
+              <span className="loading  loading-spinner loading-xs"></span>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
