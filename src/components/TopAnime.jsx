@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-
+import { Icon } from "@iconify-icon/react";
 export default function TopAnimeComponent({ topAnime }) {
   console.log(topAnime);
   return (
@@ -24,6 +24,13 @@ export default function TopAnimeComponent({ topAnime }) {
                     <p className="text-xs sm:text-sm p-2 font-extrabold backdrop-blur-[1px]">
                       {item.title}
                     </p>
+                    <div className="flex text-sm justify-start items-center">
+                      <span className="gap-1 flex justify-start items-center bg-gray-500/20 rounded-md px-1 m-1">
+                        <Icon icon="mdi:cc-outline" className="text-xl" />
+                        {item.episodes}
+                      </span>
+                      <span>{item.type}</span>
+                    </div>
                   </div>
                   <div className="pointer-events-none rounded-xl absolute inset-x-0 bottom-0 w-full h-[70%] bg-gradient-to-t from-base-100"></div>
                   <div className="pointer-events-none absolute rounded-xl inset-y-0 left-0 w-1/3 bg-gradient-to-r from-base-100/80"></div>

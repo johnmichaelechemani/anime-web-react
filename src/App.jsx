@@ -38,7 +38,10 @@ function App() {
 
       try {
         const response = await axios.request(anime);
-        const top10Anime = response.data.data.splice(0, 10);
+
+        const top10Anime = response.data.data
+          .sort((a, b) => a.rank - b.rank) // Sort by rank
+          .splice(0, 10); // Get top 10
 
         setTopAnime(top10Anime);
         console.log(response.data.data);

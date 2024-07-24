@@ -9,7 +9,7 @@ function RandomAnime({ data }) {
             <img
               src={data.images.jpg.image_url}
               alt={data.title}
-              className="object-cover object-center transition rounded-xl h-full w-full"
+              className="object-cover object-center transition hover:opacity-75 rounded-xl h-full w-full"
             />
             <div className="absolute text-gray-200 left-0 z-10 bottom-0">
               <h2 className=" text-sm p-2 font-extrabold  backdrop-blur-[1px]">
