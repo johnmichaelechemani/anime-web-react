@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import { Icon } from "@iconify-icon/react";
+import CardMain from "./CardMain";
 export default function Search() {
   const modalRef = useRef(null);
   const [search, setSearch] = useState("");
@@ -89,37 +89,13 @@ export default function Search() {
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-2 py-3 gap-y-2">
                 {searchData && searchData.length > 0 ? (
                   searchData.map((anime) => (
-                    <div
+                    <CardMain
                       key={anime.mal_id}
-                      className="flex justify-center sm:justify-start gap-2 items-center"
-                    >
-                      <div className="rounded-xl border border-cyan-500/50 overflow-hidden">
-                        <div className="w-52 relative h-52">
-                          <img
-                            src={anime.images.jpg.image_url}
-                            className="object-cover object-center h-full w-full"
-                          />
-
-                          <div className="absolute text-gray-200 left-0 z-10 bottom-0">
-                            <p className="text-xs sm:text-sm p-2 font-extrabold backdrop-blur-[1px]">
-                              {anime.title}
-                            </p>
-                            <div className="flex text-sm justify-start items-center">
-                              <span className="gap-1 flex justify-start items-center bg-gray-500/20 rounded-md px-1 m-1">
-                                <Icon
-                                  icon="mdi:cc-outline"
-                                  className="text-xl"
-                                />
-                                {anime.episodes}
-                              </span>
-                              <span className="text-primary">{anime.type}</span>
-                            </div>
-                          </div>
-                          <div className="pointer-events-none rounded-xl absolute inset-x-0 bottom-0 w-full h-[70%] bg-gradient-to-t from-base-100"></div>
-                          <div className="pointer-events-none absolute rounded-xl inset-y-0 left-0 w-1/3 bg-gradient-to-r from-base-100/80"></div>
-                        </div>
-                      </div>
-                    </div>
+                      src={anime.images.jpg.image_url}
+                      animeTitle={anime.title}
+                      episodes={anime.episodes}
+                      type={anime.type}
+                    />
                   ))
                 ) : (
                   <> {search ? <div>No results found</div> : <></>}</>
