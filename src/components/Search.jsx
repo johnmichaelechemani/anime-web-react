@@ -1,13 +1,18 @@
 import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import CardMain from "./CardMain";
+import ModalMain from "./ModalMain";
 export default function Search() {
   const modalRef = useRef(null);
+  const modalRefAnimeInfo = useRef(null);
   const [search, setSearch] = useState("");
   const [searchData, setSearchData] = useState([]);
+  const [selectedItem, setSelectedItem] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const endPointURlSearch = "https://api.jikan.moe/v4/anime?q=";
   const defaultSearch = "https://api.jikan.moe/v4/anime";
   let URL = "";
+
   if (search !== "") {
     URL = endPointURlSearch + search;
   } else {
@@ -29,7 +34,7 @@ export default function Search() {
 
       try {
         const response = await axios.request(anime);
-        console.log(response.data.data);
+        // console.log(response.data.data);
         setSearchData(response.data.data);
       } catch (error) {
         console.error(error);
@@ -39,10 +44,18 @@ export default function Search() {
     getDataSearch();
   }, [URL]);
 
-  console.log("search", searchData);
+  // console.log("search", searchData);
 
   const handleModalClickSearch = () => {
-    console.log(search.toLowerCase());
+    // console.log(search.toLowerCase());
+  };
+
+  const handleTopAnimeModal = (anime) => {
+    setSelectedItem(anime);
+    setIsModalOpen(true);
+    if (modalRefAnimeInfo.current) {
+      modalRefAnimeInfo.current.showModal();
+    }
   };
   return (
     <>
@@ -95,6 +108,7 @@ export default function Search() {
                       animeTitle={anime.title}
                       episodes={anime.episodes}
                       type={anime.type}
+                      onClick={() => handleTopAnimeModal(anime)}
                     />
                   ))
                 ) : (
@@ -108,6 +122,17 @@ export default function Search() {
           </form>
         </dialog>
       </div>
+      {/* modal */}
+      {selectedItem && (
+        <div>
+          <ModalMain
+            ref={modalRefAnimeInfo}
+            data={selectedItem}
+            onClose={() => setIsModalOpen(false)}
+            isModalOpen={isModalOpen}
+          />
+        </div>
+      )}
     </>
   );
 }

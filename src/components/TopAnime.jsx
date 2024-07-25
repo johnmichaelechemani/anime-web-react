@@ -5,13 +5,12 @@ import ModalMain from "./ModalMain";
 export default function TopAnimeComponent({ topAnime }) {
   const modalTopAnimeRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // console.log(topAnime);
   const [selectedItem, setSelectedItem] = useState([]);
 
   const handleTopAnimeModal = (item) => {
     setSelectedItem(item);
     setIsModalOpen(true);
-    console.log(item);
+    // console.log(item);
     if (modalTopAnimeRef.current) {
       modalTopAnimeRef.current.showModal();
     }

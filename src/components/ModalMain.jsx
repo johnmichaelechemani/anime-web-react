@@ -19,17 +19,19 @@ const ModalMain = forwardRef(({ onClose, data, isModalOpen }, ref) => {
   return (
     <dialog id="modal" ref={ref} className="modal" onClose={onClose}>
       <div className="modal-box bg-gray-800/50 text-gray-200 border border-gray-500/50 backdrop-blur-xl">
-        {data.trailer?.youtube_id && (
+        {data && data.trailer && data.trailer.youtube_id && isModalOpen ? (
           <iframe
             width="100%"
-            className="rounded-xl"
             height="315"
+            className="rounded-xl"
             src={data.trailer.embed_url}
             title={`${data.title} Trailer`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
+        ) : (
+          <></>
         )}
         <h3 className="text-3xl py-3 font-bold">{data.title}</h3>
         <div className="flex justify-start items-center gap-2">
