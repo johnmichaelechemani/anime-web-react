@@ -4,7 +4,7 @@ export default function Banner({ bgImage }) {
   return (
     <>
       <div className="relative pb-5">
-        <div className="h-52 sm:h-60 md:h-96 relative">
+        <div className="h-52 pb-2 sm:h-60 md:h-96 relative">
           <img
             src={bgImage}
             alt=""

@@ -25,7 +25,7 @@ function App() {
 
       try {
         const response = await axios.request(anime);
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setData(response.data.data);
       } catch (error) {
         console.error(error);
@@ -45,7 +45,7 @@ function App() {
           .splice(0, 10); // Get top 10
 
         setTopAnime(top10Anime);
-        console.log(response.data.data);
+        // console.log(response.data.data);
       } catch (error) {
         console.error(error);
       }
@@ -71,10 +71,13 @@ function App() {
         </div>
         <div className="py-5 pt-20 sm:pt-10 flex justify-start px-8 items-center gap-3">
           <button className="btn btn-sm rounded-full text-gray-200 font-semibold btn-primary tracking-wide  px-6">
-            Top 10 Anime
+            TOP 10
           </button>
           <button className="btn btn-sm rounded-full bg-transparent border border-gray-500/50 px-6 ">
-            Playlist
+            TV
+          </button>
+          <button className="btn btn-sm rounded-full bg-transparent border border-gray-500/50 px-6 ">
+            SERIES
           </button>
         </div>
         {topAnime ? (
