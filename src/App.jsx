@@ -104,10 +104,10 @@ function App() {
               <button
                 key={item.id}
                 onClick={item.action}
-                className={`btn btn-sm rounded-full px-6 ${
+                className={`btn btn-sm rounded-full uppercase px-6 ${
                   activeCategory === item.name
-                    ? "btn-primary"
-                    : "bg-transparent border border-gray-500/50"
+                    ? "btn-primary text-sm "
+                    : "bg-transparent text-xs border border-gray-500/50"
                 }`}
               >
                 {" "}
