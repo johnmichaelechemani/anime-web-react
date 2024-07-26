@@ -39,12 +39,8 @@ const Home = () => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     const getData = async () => {
-      const anime = {
-        method: "GET",
-        url: endPointURlRandom,
-      };
       try {
-        const response = await axios.request(anime);
+        const response = await axios.get(endPointURlRandom);
         //console.log(response.data.data);
         setData(response.data.data);
       } catch (error) {
