@@ -153,7 +153,10 @@ function App() {
           </div>
         </div>
         {topAnime ? (
-          <TopAnimeComponent topAnime={topAnime} />
+          <>
+            {" "}
+            <TopAnimeComponent topAnime={topAnime} />
+          </>
         ) : (
           <>
             <Loading />
