@@ -9,7 +9,10 @@ import Loading from "./components/Loading";
 function App() {
   const [data, setData] = useState(null);
   const [topAnime, setTopAnime] = useState(null);
-  const [allAnime, setAllAnime] = useState(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   const dataFetchedRef = useRef(false);
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -17,6 +20,18 @@ function App() {
   const endPointURlRandom = "https://api.jikan.moe/v4/random/anime";
 
   const [responseData, setResponseData] = useState([]);
+
+  const getTopAnime = async (page = 1) => {
+    try {
+      const response = await axios.get(`${endPointURlTopAnime}?page=${page}`);
+      setResponseData(response.data.data);
+      setTopAnime(response.data.data);
+      setCurrentPage(response.data.pagination.current_page);
+      setTotalPages(response.data.pagination.last_visible_page);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
@@ -26,7 +41,6 @@ function App() {
         method: "GET",
         url: endPointURlRandom,
       };
-
       try {
         const response = await axios.request(anime);
         //console.log(response.data.data);
@@ -35,26 +49,15 @@ function App() {
         console.error(error);
       }
     };
-    const getTopAnime = async () => {
-      const anime = {
-        method: "GET",
-        url: endPointURlTopAnime,
-      };
-
-      try {
-        const response = await axios.request(anime);
-        setResponseData(response.data.data);
-        setTopAnime(response.data.data);
-        console.log(response.data);
-        setAllAnime(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     getData();
     getTopAnime();
   }, []);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    getTopAnime(page);
+  };
+
   let navItem = [
     {
       id: 1,
@@ -130,17 +133,21 @@ function App() {
         </div>
         <div className="flex justify-end items-center px-8 my-2">
           <div className="join">
-            <button className="join-item btn">«</button>
-
-            {allAnime && allAnime.pagination ? (
-              <button className="join-item btn">
-                {allAnime.pagination.current_page}
-              </button>
-            ) : (
-              <></>
-            )}
-
-            <button className="join-item btn">»</button>
+            <button
+              className="join-item btn"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
+            <button className="join-item btn">{currentPage}</button>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="join-item btn"
+            >
+              »
+            </button>
           </div>
         </div>
         {topAnime ? (
