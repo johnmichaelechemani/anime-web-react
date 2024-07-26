@@ -107,15 +107,7 @@ const Home = () => {
       <div className=" relative">
         {" "}
         <Banner bgImage={bgImage} />
-        <div className=" flex justify-center sm:justify-start relative items-center sm:pl-8 pb-32 sm:pb-20">
-          {data ? (
-            <RandomAnime data={data} key={data.mal_id} />
-          ) : (
-            <>
-              <Loading />
-            </>
-          )}
-        </div>
+        {data ? <RandomAnime data={data} key={data.mal_id} /> : <Loading />}
         <div className="py-5 pt-20 sm:pt-10 flex justify-start px-8 items-center gap-3">
           <div className="flex justify-start items-center gap-3 overflow-hidden overflow-x-scroll no-scrollbar">
             {navItem.map((item) => {
@@ -149,16 +141,7 @@ const Home = () => {
             totalPages={totalPages}
           />
         )}
-        {topAnime ? (
-          <>
-            {" "}
-            <TopAnimeComponent topAnime={topAnime} />
-          </>
-        ) : (
-          <>
-            <Loading />
-          </>
-        )}
+        {topAnime ? <TopAnimeComponent topAnime={topAnime} /> : <Loading />}
       </div>
     </>
   );
