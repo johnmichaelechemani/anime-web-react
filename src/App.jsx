@@ -10,7 +10,7 @@ function App() {
   const [data, setData] = useState(null);
   const [topAnime, setTopAnime] = useState(null);
   const dataFetchedRef = useRef(false);
-  const [activeCategory, setActiveCategory] = useState("Top 10");
+  const [activeCategory, setActiveCategory] = useState("All");
 
   const endPointURlTopAnime = "https://api.jikan.moe/v4/top/anime";
   const endPointURlRandom = "https://api.jikan.moe/v4/random/anime";
@@ -56,14 +56,24 @@ function App() {
   let navItem = [
     {
       id: 1,
-      name: "Top 10",
+      name: "All",
       action: () => {
-        setTopAnime(responseData.sort((a, b) => a.rank - b.rank));
-        setActiveCategory("Top 10");
+        setTopAnime(responseData);
+        setActiveCategory("All");
       },
     },
     {
       id: 2,
+      name: "Top 10",
+      action: () => {
+        setTopAnime(
+          [...responseData].sort((a, b) => a.rank - b.rank).slice(0, 10)
+        );
+        setActiveCategory("Top 10");
+      },
+    },
+    {
+      id: 3,
       name: "MOVIE",
       action: () => {
         setTopAnime(responseData.filter((anime) => anime.type === "Movie"));
@@ -71,7 +81,7 @@ function App() {
       },
     },
     {
-      id: 3,
+      id: 4,
       name: "SERIES",
       action: () => {
         setTopAnime(
