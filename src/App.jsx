@@ -6,6 +6,7 @@ import RandomAnime from "./components/RandomAnime";
 import Banner from "./components/Banner";
 import TopAnimeComponent from "./components/TopAnime";
 import Loading from "./components/Loading";
+import Pagination from "./components/Pagination";
 function App() {
   const [data, setData] = useState(null);
   const [topAnime, setTopAnime] = useState(null);
@@ -32,7 +33,6 @@ function App() {
       console.error(error);
     }
   };
-
   useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
@@ -54,7 +54,9 @@ function App() {
   }, []);
 
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
     getTopAnime(page);
   };
 
@@ -71,6 +73,7 @@ function App() {
       id: 2,
       name: "Top 10",
       action: () => {
+        setCurrentPage(1);
         setTopAnime(
           [...responseData].sort((a, b) => a.rank - b.rank).slice(0, 10)
         );
@@ -133,25 +136,19 @@ function App() {
             })}
           </div>
         </div>
-        <div className="flex justify-end items-center px-8 my-2">
-          <div className="join">
-            <button
-              className="join-item btn"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              «
-            </button>
-            <button className="join-item btn">{currentPage}</button>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="join-item btn"
-            >
-              »
-            </button>
-          </div>
-        </div>
+        {activeCategory === "Top 10" ? (
+          <>
+            <div className="flex text-3xl py-3 justify-start px-8 items-center">
+              <h1>Top 10</h1>
+            </div>
+          </>
+        ) : (
+          <Pagination
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+            totalPages={totalPages}
+          />
+        )}
         {topAnime ? (
           <>
             {" "}
