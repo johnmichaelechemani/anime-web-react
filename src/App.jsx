@@ -9,6 +9,7 @@ import Loading from "./components/Loading";
 function App() {
   const [data, setData] = useState(null);
   const [topAnime, setTopAnime] = useState(null);
+  const [allAnime, setAllAnime] = useState(null);
   const dataFetchedRef = useRef(false);
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -44,7 +45,8 @@ function App() {
         const response = await axios.request(anime);
         setResponseData(response.data.data);
         setTopAnime(response.data.data);
-        //console.log(response.data.data);
+        console.log(response.data);
+        setAllAnime(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -125,6 +127,21 @@ function App() {
               </button>
             );
           })}
+        </div>
+        <div className="flex justify-end items-center px-8 my-2">
+          <div className="join">
+            <button className="join-item btn">«</button>
+
+            {allAnime && allAnime.pagination ? (
+              <button className="join-item btn">
+                {allAnime.pagination.current_page}
+              </button>
+            ) : (
+              <></>
+            )}
+
+            <button className="join-item btn">»</button>
+          </div>
         </div>
         {topAnime ? (
           <TopAnimeComponent topAnime={topAnime} />
