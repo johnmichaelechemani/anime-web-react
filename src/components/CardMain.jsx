@@ -37,7 +37,7 @@ export default function CardMain({ src, animeTitle, episodes, type, onClick }) {
 CardMain.propTypes = {
   src: PropTypes.string.isRequired,
   animeTitle: PropTypes.string.isRequired,
-  episodes: PropTypes.string.isRequired,
+  episodes: PropTypes.number,
   type: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
 };
