@@ -19,13 +19,17 @@ export default function CardMain({ src, animeTitle, episodes, type, onClick }) {
                 {animeTitle}
               </p>
               <div className="flex text-sm justify-start items-center">
-                <span className="gap-1 flex justify-start items-center bg-gray-500/20 rounded-md px-1 m-1">
-                  <Icon icon="mdi:cc-outline" className="text-xl" />
-                  {episodes}
-                </span>
+                {episodes && (
+                  <span className="gap-1 flex justify-start items-center bg-gray-500/20 rounded-md px-1 m-1">
+                    <Icon icon="mdi:cc-outline" className="text-xl" />
+                    {episodes}
+                  </span>
+                )}
               </div>
             </div>
-            <div className="absolute top-0 left-0 z-10 text-gray-200 p-1 text-xs font-semibold bg-primary">{type}</div>
+            <div className="absolute top-0 left-0 z-10 text-gray-200 p-1 text-xs font-semibold bg-primary">
+              {type}
+            </div>
             <div className="pointer-events-none rounded-xl absolute inset-x-0 bottom-0 w-full h-[70%] bg-gradient-to-t from-base-100"></div>
           </div>
         </div>
@@ -39,5 +43,5 @@ CardMain.propTypes = {
   animeTitle: PropTypes.string.isRequired,
   episodes: PropTypes.number,
   type: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 };
