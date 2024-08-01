@@ -1,11 +1,13 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import CardMain from "./CardMain";
 import ModalMain from "./ModalMain";
+import Loading from './Loading'
 export default function Search() {
   const modalRef = useRef(null);
   const modalRefAnimeInfo = useRef(null);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [selectedItem, setSelectedItem] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,8 +15,8 @@ export default function Search() {
   const defaultSearch = "https://api.jikan.moe/v4/anime";
   let URL = "";
 
-  if (search !== "") {
-    URL = endPointURlSearch + search;
+  if (debouncedSearch !== "") {
+    URL = endPointURlSearch + debouncedSearch;
   } else {
     URL = defaultSearch;
   }
@@ -43,6 +45,19 @@ export default function Search() {
 
     getDataSearch();
   }, [URL]);
+
+// add debounce
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+      console.log('loading...')
+    }, 300);
+
+    // Cleanup timeout if the effect is called again before 300ms
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
 
   // console.log("search", searchData);
 
@@ -100,6 +115,7 @@ export default function Search() {
                 {search ? <h1>Result:</h1> : <>Recommendations:</>}
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-2 py-3 gap-y-2">
+              <Suspense fallback={<Loading />}> 
                 {searchData && searchData.length > 0 ? (
                   searchData.map((anime) => (
                     <CardMain
@@ -112,8 +128,9 @@ export default function Search() {
                     />
                   ))
                 ) : (
-                  <> {search ? <div>No results found</div> : <></>}</>
+                  search && <div>No results found</div>
                 )}
+                </Suspense>
               </div>
             </div>
           </div>
