@@ -28,5 +28,5 @@ export default function Tabs({ navItem, activeCategory }) {
 }
 Tabs.propTypes = {
   navItem: PropTypes.any,
-  activeCategory: PropTypes.bool.isRequired,
+  activeCategory: PropTypes.string.isRequired,
 };
