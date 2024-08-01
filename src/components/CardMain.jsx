@@ -22,9 +22,10 @@ export default function CardMain({ src, animeTitle, episodes, type, onClick }) {
                   <Icon icon="mdi:cc-outline" className="text-xl" />
                   {episodes}
                 </span>
-                <span className="text-primary">{type}</span>
               </div>
             </div>
+
+            <div className="absolute top-0 left-0 z-10 text-gray-200 p-1 text-xs font-semibold bg-primary">{type}</div>
             <div className="pointer-events-none rounded-xl absolute inset-x-0 bottom-0 w-full h-[70%] bg-gradient-to-t from-base-100"></div>
           </div>
         </div>
