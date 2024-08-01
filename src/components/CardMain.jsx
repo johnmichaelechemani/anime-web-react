@@ -26,7 +26,6 @@ export default function CardMain({ src, animeTitle, episodes, type, onClick }) {
               </div>
             </div>
             <div className="pointer-events-none rounded-xl absolute inset-x-0 bottom-0 w-full h-[70%] bg-gradient-to-t from-base-100"></div>
-            <div className="pointer-events-none absolute rounded-xl inset-y-0 left-0 w-1/3 bg-gradient-to-r from-base-100/80"></div>
           </div>
         </div>
       </div>
