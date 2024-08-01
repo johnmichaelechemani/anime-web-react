@@ -1,3 +1,6 @@
+import PropTypes from "prop-types";
+
+
 import { Icon } from "@iconify-icon/react";
 export default function CardMain({ src, animeTitle, episodes, type, onClick }) {
   return (
@@ -33,3 +36,11 @@ export default function CardMain({ src, animeTitle, episodes, type, onClick }) {
     </>
   );
 }
+
+CardMain.propTypes = {
+  src: PropTypes.string.isRequired,
+  animeTitle: PropTypes.string.isRequired,
+  episodes: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
