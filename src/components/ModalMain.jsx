@@ -9,6 +9,7 @@ const ModalMain = forwardRef(({ onClose, data, isModalOpen }, ref) => {
         onClose();
       }
     };
+    console.log(data);
 
     document.addEventListener("keydown", handleEscapeKey);
     return () => {
@@ -24,7 +25,7 @@ const ModalMain = forwardRef(({ onClose, data, isModalOpen }, ref) => {
             width="100%"
             height="315"
             className="rounded-xl"
-            src={data.trailer.embed_url}
+            src={`https://www.youtube-nocookie.com/embed/${data.trailer.youtube_id}?rel=0&modestbranding=1&wmode=opaque&autoplay=1`}
             title={`${data.title} Trailer`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
