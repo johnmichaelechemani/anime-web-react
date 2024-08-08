@@ -3,6 +3,7 @@ import axios from "axios";
 import CardMain from "./CardMain";
 import ModalMain from "./ModalMain";
 import Loading from "./Loading";
+import { Icon } from "@iconify/react";
 export default function Search() {
   const modalRef = useRef(null);
   const modalRefAnimeInfo = useRef(null);
@@ -102,10 +103,10 @@ export default function Search() {
                 className="input input-bordered bg-transparent rounded-full w-full max-w-lg"
               />
               <button
-                className={` ${search === "" ? "hidden" : ""} btn btn-primary`}
+                className={` ${search === "" ? "hidden" : ""} btn btn-primary px-3 rounded-full text-gray-300`}
                 onClick={handleModalClickSearch}
               >
-                Search
+                <Icon icon="material-symbols:search" className="text-2xl" />
               </button>
             </div>
 
