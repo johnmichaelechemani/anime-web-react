@@ -9,7 +9,6 @@ const ModalMain = forwardRef(({ onClose, data, isModalOpen }, ref) => {
         onClose();
       }
     };
-    console.log(data);
 
     document.addEventListener("keydown", handleEscapeKey);
     return () => {

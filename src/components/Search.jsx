@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import CardMain from "./CardMain";
 import ModalMain from "./ModalMain";
-import Loading from './Loading'
+import Loading from "./Loading";
 export default function Search() {
   const modalRef = useRef(null);
   const modalRefAnimeInfo = useRef(null);
@@ -46,11 +46,11 @@ export default function Search() {
     getDataSearch();
   }, [URL]);
 
-// add debounce
+  // add debounce
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(search);
-      console.log('loading...')
+      console.log("loading...");
     }, 300);
 
     // Cleanup timeout if the effect is called again before 300ms
@@ -99,11 +99,10 @@ export default function Search() {
                 onChange={(e) => {
                   setSearch(e.target.value.toLowerCase());
                 }}
-                className="input cur input-bordered bg-transparent rounded-full w-full max-w-lg"
+                className="input input-bordered bg-transparent rounded-full w-full max-w-lg"
               />
               <button
-                disabled={search === ""}
-                className="btn btn-primary"
+                className={` ${search === "" ? "hidden" : ""} btn btn-primary`}
                 onClick={handleModalClickSearch}
               >
                 Search
@@ -115,21 +114,19 @@ export default function Search() {
                 {search ? <h1>Result:</h1> : <>Recommendations:</>}
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-2 py-3 gap-y-2">
-              <Suspense fallback={<Loading />}> 
-                {searchData && searchData.length > 0 ? (
-                  searchData.map((anime) => (
-                    <CardMain
-                      key={anime.mal_id}
-                      src={anime.images.jpg.image_url}
-                      animeTitle={anime.title}
-                      episodes={anime.episodes}
-                      type={anime.type}
-                      onClick={() => handleTopAnimeModal(anime)}
-                    />
-                  ))
-                ) : (
-                  search && <div>No results found</div>
-                )}
+                <Suspense fallback={<Loading />}>
+                  {searchData && searchData.length > 0
+                    ? searchData.map((anime) => (
+                        <CardMain
+                          key={anime.mal_id}
+                          src={anime.images.jpg.image_url}
+                          animeTitle={anime.title}
+                          episodes={anime.episodes}
+                          type={anime.type}
+                          onClick={() => handleTopAnimeModal(anime)}
+                        />
+                      ))
+                    : search && <div>No results found</div>}
                 </Suspense>
               </div>
             </div>
