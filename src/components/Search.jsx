@@ -4,6 +4,7 @@ import CardMain from "./CardMain";
 import ModalMain from "./ModalMain";
 import Loading from "./Loading";
 import { Icon } from "@iconify/react";
+
 export default function Search() {
   const modalRef = useRef(null);
   const modalRefAnimeInfo = useRef(null);
